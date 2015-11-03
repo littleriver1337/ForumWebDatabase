@@ -24,6 +24,7 @@ public class MainTest {
         stmt.execute("DROP TABLE messages");
         conn.close();
     }
+
     @Test
     public void testUser() throws SQLException {
         Connection conn = startConnection();
@@ -32,5 +33,16 @@ public class MainTest {
         endConnection(conn);
 
         assertTrue(user != null);
+    }
+
+    @Test
+    public void testMessage() throws SQLException {
+        Connection conn = startConnection();
+        Main.insertUser(conn, "Alice", "");
+        Main.insertMessage(conn, 1, -1, "Hello World!");
+        Message message = Main.selectMessage(conn, 1);
+        endConnection(conn);
+
+        assertTrue(message != null);
     }
 }
